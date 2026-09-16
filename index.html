@@ -1,10 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>VÉLORA — Digital Atelier</title>
-</head>
-<body>
-  <h1>VÉLORA</h1>
-  <p>Digital Atelier</p>
-</body>
-</html>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3ed;
+      color: #24211e;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 24px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #d8d0c5;
+      background: #f7f3ed;
+    }
+
+    .logo {
+      font-size: 25px;
+      letter-spacing: 6px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #24211e;
+      text-decoration: none;
+      margin-left: 22px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 7%;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      color: #776f66;
+    }
+
+    h1 {
+      font-size: clamp(48px, 9vw, 100px);
+      letter-spacing: 10px;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 35px;
+      color: #665f57;
+      font-size: 17px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #24211e;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 2px;
+      font-size: 12px;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background: #514941;
+    }
+
+    section {
+      padding: 80px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      font-weight: normal;
+      letter-spacing: 3px;
+    }
+
+    .section-title p {
+      margin-top: 10px;
+      color: #776f66;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .category {
+      min-height: 220px;
+      border: 1px solid #d8d0c5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #faf8f4;
+      padding: 30px;
+    }
+
+    .category h3 {
+      font-size: 22px;
+      font-weight: normal;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .category p {
+      font-size: 14px;
+      color: #776f66;
+    }
+
+    .about {
+      background: #24211e;
+      color: #f7f3ed;
+      text-align: center;
+    }
+
+    .about p {
+      max-width: 700px;
+      margin: auto;
+      color: #d8d0c5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 7%;
+      border-top: 1px solid #d8d0c5;
+      font-size: 12px;
+      letter-spacing: 1
