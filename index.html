@@ -1,295 +1,3614 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>VÉLORA — Digital Atelier</title>
+<title>VÉLORA — Digital Atelier</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
 
-    body {
-      font-family: Georgia, "Times New Roman", serif;
-      background: #f7f3ed;
-      color: #24211e;
-      line-height: 1.6;
-    }
+:root{
+  --bg:#f7f4ef;
+  --surface:#fffdf9;
+  --surface2:#f0ebe3;
+  --text:#24211e;
+  --muted:#81786e;
+  --line:#ded6cb;
+  --dark:#211f1c;
+  --dark2:#302c27;
+  --gold:#a88a58;
+  --danger:#9d4b4b;
+  --shadow:0 18px 55px rgba(36,33,30,.08);
+  --radius:18px;
+}
 
-    header {
-      padding: 24px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #d8d0c5;
-      background: #f7f3ed;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    .logo {
-      font-size: 25px;
-      letter-spacing: 6px;
-      font-weight: bold;
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    nav a {
-      color: #24211e;
-      text-decoration: none;
-      margin-left: 22px;
-      font-size: 14px;
-      letter-spacing: 1px;
-    }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  line-height:1.6;
+}
 
-    .hero {
-      min-height: 75vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 70px 7%;
-    }
+body.rtl{
+  font-family:"Noto Naskh Arabic",Tahoma,sans-serif;
+}
 
-    .hero-content {
-      max-width: 850px;
-    }
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
 
-    .eyebrow {
-      font-size: 12px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      color: #776f66;
-    }
+button{
+  cursor:pointer;
+}
 
-    h1 {
-      font-size: clamp(48px, 9vw, 100px);
-      letter-spacing: 10px;
-      font-weight: normal;
-      margin-bottom: 20px;
-    }
+a{
+  color:inherit;
+  text-decoration:none;
+}
 
-    .hero p {
-      max-width: 600px;
-      margin: 0 auto 35px;
-      color: #665f57;
-      font-size: 17px;
-    }
+/* HEADER */
 
-    .button {
-      display: inline-block;
-      padding: 14px 32px;
-      background: #24211e;
-      color: #ffffff;
-      text-decoration: none;
-      letter-spacing: 2px;
-      font-size: 12px;
-      transition: 0.3s;
-    }
+.topbar{
+  background:var(--dark);
+  color:#fff;
+  text-align:center;
+  padding:8px 15px;
+  font-size:11px;
+  letter-spacing:2px;
+}
 
-    .button:hover {
-      background: #514941;
-    }
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(247,244,239,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
 
-    section {
-      padding: 80px 7%;
-    }
+.nav{
+  max-width:1400px;
+  margin:auto;
+  padding:22px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 45px;
-    }
+.logo{
+  font-family:"Cormorant Garamond",serif;
+  font-size:35px;
+  letter-spacing:7px;
+  font-weight:600;
+  white-space:nowrap;
+}
 
-    .section-title h2 {
-      font-size: 32px;
-      font-weight: normal;
-      letter-spacing: 3px;
-    }
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:27px;
+  font-size:12px;
+  letter-spacing:1.5px;
+}
 
-    .section-title p {
-      margin-top: 10px;
-      color: #776f66;
-    }
+.navlinks a{
+  position:relative;
+}
 
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
+.navlinks a:after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:1px;
+  background:var(--text);
+  transition:.3s;
+}
 
-    .category {
-      min-height: 220px;
-      border: 1px solid #d8d0c5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: #faf8f4;
-      padding: 30px;
-    }
+.navlinks a:hover:after{
+  width:100%;
+}
 
-    .category h3 {
-      font-size: 22px;
-      font-weight: normal;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
+.navactions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
 
-    .category p {
-      font-size: 14px;
-      color: #776f66;
-    }
+.iconbtn{
+  border:1px solid transparent;
+  background:transparent;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  color:var(--text);
+}
 
-    .about {
-      background: #24211e;
-      color: #f7f3ed;
-      text-align: center;
-    }
+.iconbtn:hover{
+  background:var(--surface2);
+}
 
-    .about p {
-      max-width: 700px;
-      margin: auto;
-      color: #d8d0c5;
-    }
+.badge{
+  position:relative;
+}
 
-    footer {
-      text-align: center;
-      padding: 35px 7%;
-      border-top: 1px solid #d8d0c5;
-      font-size: 12px;
-      letter-spacing: 1px;
-      color: #776f66;
-    }
+.badge span{
+  position:absolute;
+  top:-2px;
+  right:-2px;
+  min-width:17px;
+  height:17px;
+  padding:0 4px;
+  border-radius:20px;
+  background:var(--dark);
+  color:#fff;
+  font-size:9px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-    @media (max-width: 700px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-      }
+.langbtn{
+  border:1px solid var(--line);
+  background:transparent;
+  padding:9px 13px;
+  border-radius:30px;
+  font-size:11px;
+}
 
-      nav a {
-        margin: 0 7px;
-      }
+/* HERO */
 
-      .categories {
-        grid-template-columns: 1fr;
-      }
+.hero{
+  min-height:82vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:90px 6%;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(168,138,88,.12),transparent 35%),
+    var(--bg);
+}
 
-      .hero {
-        min-height: 65vh;
-      }
-    }
-  </style>
+.hero-inner{
+  max-width:950px;
+}
+
+.eyebrow{
+  text-transform:uppercase;
+  letter-spacing:5px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(65px,12vw,150px);
+  font-weight:500;
+  letter-spacing:15px;
+  line-height:.9;
+}
+
+.hero h2{
+  font-family:"Cormorant Garamond",serif;
+  font-weight:400;
+  font-size:clamp(24px,4vw,44px);
+  margin:25px 0 15px;
+}
+
+.hero p{
+  max-width:650px;
+  margin:0 auto 35px;
+  color:var(--muted);
+  font-size:15px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border:none;
+  background:var(--dark);
+  color:white;
+  padding:14px 25px;
+  border-radius:40px;
+  font-size:11px;
+  letter-spacing:1.5px;
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.btn.light{
+  background:var(--surface);
+  color:var(--text);
+  border:1px solid var(--line);
+}
+
+.btn.gold{
+  background:var(--gold);
+}
+
+.btn.danger{
+  background:var(--danger);
+}
+
+/* SECTIONS */
+
+.section{
+  max-width:1400px;
+  margin:auto;
+  padding:95px 5%;
+}
+
+.section-head{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.section-head .small{
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:10px;
+}
+
+.section-head h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:50px;
+  font-weight:500;
+  margin:8px 0;
+}
+
+.section-head p{
+  color:var(--muted);
+}
+
+/* CATEGORIES */
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.category{
+  min-height:190px;
+  padding:30px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:var(--radius);
+  display:flex;
+  align-items:flex-end;
+  position:relative;
+  overflow:hidden;
+  transition:.3s;
+}
+
+.category:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.category:before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:rgba(168,138,88,.08);
+  top:-70px;
+  right:-50px;
+}
+
+.category h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:30px;
+  font-weight:500;
+}
+
+.category p{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* PRODUCTS */
+
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.searchbox{
+  flex:1;
+  min-width:220px;
+  position:relative;
+}
+
+.searchbox input{
+  width:100%;
+  padding:14px 18px;
+  border:1px solid var(--line);
+  border-radius:40px;
+  background:var(--surface);
+  outline:none;
+}
+
+.select{
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:40px;
+  padding:0 18px;
+  outline:none;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+
+.product{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:.3s;
+  position:relative;
+}
+
+.product:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.product-image{
+  height:270px;
+  background:
+    linear-gradient(135deg,#eee7dd,#faf8f4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.product-image .preview{
+  width:74%;
+  height:78%;
+  border:1px solid rgba(36,33,30,.15);
+  background:rgba(255,255,255,.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-family:"Cormorant Garamond",serif;
+  font-size:29px;
+  letter-spacing:2px;
+  box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.watermark{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:rotate(-28deg);
+  font-size:28px;
+  letter-spacing:7px;
+  color:rgba(80,70,55,.09);
+  font-weight:600;
+  pointer-events:none;
+}
+
+.product-tag{
+  position:absolute;
+  top:13px;
+  left:13px;
+  padding:6px 10px;
+  background:var(--dark);
+  color:#fff;
+  border-radius:20px;
+  font-size:9px;
+  letter-spacing:1px;
+}
+
+.product-heart{
+  position:absolute;
+  top:10px;
+  right:10px;
+  border:none;
+  background:rgba(255,255,255,.8);
+  width:35px;
+  height:35px;
+  border-radius:50%;
+}
+
+.product-info{
+  padding:20px;
+}
+
+.product-info h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:25px;
+  font-weight:500;
+}
+
+.product-info p{
+  color:var(--muted);
+  font-size:12px;
+  min-height:38px;
+}
+
+.price{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:14px 0;
+}
+
+.price strong{
+  font-size:17px;
+}
+
+.oldprice{
+  text-decoration:line-through;
+  color:#aaa;
+  font-size:12px;
+}
+
+.discount{
+  color:#8a4b3e;
+  font-size:10px;
+}
+
+.product-actions{
+  display:flex;
+  gap:8px;
+}
+
+.product-actions .btn{
+  flex:1;
+}
+
+/* ABOUT */
+
+.dark-section{
+  background:var(--dark);
+  color:white;
+}
+
+.about-grid{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+
+.about-title{
+  font-family:"Cormorant Garamond",serif;
+  font-size:65px;
+  line-height:.95;
+}
+
+.about-text{
+  color:#c9c1b7;
+}
+
+/* FEATURE */
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.feature{
+  padding:35px 25px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--surface);
+}
+
+.feature-icon{
+  font-size:25px;
+  margin-bottom:18px;
+}
+
+.feature h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:24px;
+  font-weight:500;
+  margin-bottom:8px;
+}
+
+.feature p{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* DRAWER / MODAL */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(20,18,16,.5);
+  backdrop-filter:blur(5px);
+  z-index:2000;
+  display:none;
+}
+
+.overlay.show{
+  display:block;
+}
+
+.drawer{
+  position:absolute;
+  top:0;
+  right:0;
+  height:100%;
+  width:min(470px,94vw);
+  background:var(--surface);
+  padding:30px;
+  overflow:auto;
+  box-shadow:-20px 0 60px rgba(0,0,0,.15);
+}
+
+.rtl .drawer{
+  right:auto;
+  left:0;
+}
+
+.drawer-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.drawer-head h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:35px;
+  font-weight:500;
+}
+
+.close{
+  border:0;
+  background:var(--surface2);
+  width:38px;
+  height:38px;
+  border-radius:50%;
+}
+
+/* CART */
+
+.cart-item{
+  display:flex;
+  gap:15px;
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.cart-thumb{
+  width:65px;
+  height:75px;
+  background:var(--surface2);
+  display:grid;
+  place-items:center;
+  font-family:"Cormorant Garamond",serif;
+}
+
+.cart-item h4{
+  font-family:"Cormorant Garamond",serif;
+  font-size:20px;
+}
+
+.cart-item small{
+  color:var(--muted);
+}
+
+.cart-remove{
+  margin-left:auto;
+  border:0;
+  background:none;
+  color:var(--danger);
+}
+
+.cart-total{
+  padding:25px 0;
+  display:flex;
+  justify-content:space-between;
+  font-size:19px;
+}
+
+/* FORMS */
+
+.form{
+  display:grid;
+  gap:14px;
+}
+
+.form input,
+.form textarea,
+.form select{
+  width:100%;
+  border:1px solid var(--line);
+  background:var(--surface);
+  padding:14px 16px;
+  border-radius:12px;
+  outline:none;
+}
+
+.form textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+.form label{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.5px;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+  display:grid;
+  grid-template-columns:230px 1fr;
+  min-height:650px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--surface);
+}
+
+.admin-nav{
+  background:var(--dark);
+  color:white;
+  padding:25px 15px;
+}
+
+.admin-nav h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:30px;
+  font-weight:500;
+  padding:10px 15px 25px;
+}
+
+.admin-nav button{
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:13px 15px;
+  border:0;
+  background:transparent;
+  color:#d8d1c8;
+  border-radius:9px;
+  margin:3px 0;
+}
+
+.rtl .admin-nav button{
+  text-align:right;
+}
+
+.admin-nav button:hover,
+.admin-nav button.active{
+  background:#39342e;
+  color:#fff;
+}
+
+.admin-content{
+  padding:35px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:30px;
+}
+
+.stat{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:15px;
+}
+
+.stat small{
+  color:var(--muted);
+}
+
+.stat strong{
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:32px;
+  margin-top:8px;
+}
+
+.admin-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+.admin-table th,
+.admin-table td{
+  border-bottom:1px solid var(--line);
+  padding:14px 8px;
+  text-align:left;
+}
+
+.rtl .admin-table th,
+.rtl .admin-table td{
+  text-align:right;
+}
+
+/* REVIEWS */
+
+.review-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.review{
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--surface);
+}
+
+.stars{
+  color:var(--gold);
+  letter-spacing:3px;
+  margin-bottom:10px;
+}
+
+.review p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* FOOTER */
+
+footer{
+  background:#181714;
+  color:#bdb5aa;
+  padding:60px 6% 25px;
+}
+
+.footer-grid{
+  max-width:1300px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;
+}
+
+.footer-logo{
+  color:#fff;
+  font-family:"Cormorant Garamond",serif;
+  font-size:38px;
+  letter-spacing:6px;
+}
+
+.footer-col h4{
+  color:#fff;
+  margin-bottom:15px;
+  font-size:12px;
+  letter-spacing:1px;
+}
+
+.footer-col a{
+  display:block;
+  margin:8px 0;
+  font-size:12px;
+}
+
+.copyright{
+  max-width:1300px;
+  margin:45px auto 0;
+  padding-top:20px;
+  border-top:1px solid #39352f;
+  font-size:10px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:var(--dark);
+  color:white;
+  padding:13px 22px;
+  border-radius:40px;
+  font-size:12px;
+  z-index:5000;
+  opacity:0;
+  transition:.3s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px){
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .features{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:760px){
+  .nav{
+    padding:16px 4%;
+  }
+
+  .logo{
+    font-size:28px;
+  }
+
+  .navlinks{
+    display:none;
+  }
+
+  .hero{
+    min-height:75vh;
+  }
+
+  .hero h1{
+    letter-spacing:7px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .product-image{
+    height:210px;
+  }
+
+  .product-info{
+    padding:14px;
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .admin-nav{
+    display:none;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .review-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:500px){
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .categories{
+    grid-template-columns:1fr;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+  .section{
+    padding:70px 5%;
+  }
+
+  .section-head h2{
+    font-size:40px;
+  }
+
+  .hero h1{
+    font-size:65px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">VÉLORA</div>
+<div class="topbar">
+  FREE DIGITAL DELIVERY · VÉLORA DIGITAL ATELIER
+</div>
 
-    <nav>
-      <a href="#shop">SHOP</a>
-      <a href="#about">ABOUT</a>
-      <a href="#contact">CONTACT</a>
+<header>
+  <div class="nav">
+
+    <a href="#home" class="logo">VÉLORA</a>
+
+    <nav class="navlinks">
+      <a href="#shop" data-i18n="shop">SHOP</a>
+      <a href="#categories" data-i18n="categories">CATEGORIES</a>
+      <a href="#custom" data-i18n="custom">CUSTOM</a>
+      <a href="#about" data-i18n="about">ABOUT</a>
     </nav>
-  </header>
 
-  <main>
+    <div class="navactions">
 
-    <section class="hero">
-      <div class="hero-content">
+      <button class="langbtn" onclick="toggleLanguage()" id="languageButton">
+        فارسی
+      </button>
 
-        <div class="eyebrow">Digital Atelier</div>
+      <button class="iconbtn" onclick="openPanel('searchPanel')">
+        ⌕
+      </button>
 
-        <h1>VÉLORA</h1>
+      <button class="iconbtn badge" onclick="openPanel('wishlistPanel')">
+        ♡
+        <span id="wishlistCount">0</span>
+      </button>
 
-        <p>
-          Curated digital creations for study, planning,
-          creativity and everyday inspiration.
-        </p>
+      <button class="iconbtn badge" onclick="openPanel('cartPanel')">
+        ♧
+        <span id="cartCount">0</span>
+      </button>
 
-        <a href="#shop" class="button">EXPLORE COLLECTION</a>
+      <button class="iconbtn" onclick="openPanel('accountPanel')">
+        ◯
+      </button>
 
-      </div>
-    </section>
+    </div>
+  </div>
+</header>
 
-    <section id="shop">
+<main>
 
-      <div class="section-title">
-        <h2>The Collection</h2>
-        <p>Digital pieces designed with intention.</p>
-      </div>
+<section class="hero" id="home">
+  <div class="hero-inner">
 
-      <div class="categories">
+    <div class="eyebrow" data-i18n="eyebrow">
+      Digital Atelier
+    </div>
 
-        <div class="category">
-          <div>
-            <h3>PLANNERS</h3>
-            <p>Elegant digital planners &amp; organizers</p>
-          </div>
-        </div>
+    <h1>VÉLORA</h1>
 
-        <div class="category">
-          <div>
-            <h3>STUDY</h3>
-            <p>Notes, templates &amp; study tools</p>
-          </div>
-        </div>
+    <h2 data-i18n="heroTitle">
+      Beautiful things, made digital.
+    </h2>
 
-        <div class="category">
-          <div>
-            <h3>WALLPAPERS</h3>
-            <p>Minimal digital backgrounds</p>
-          </div>
-        </div>
+    <p data-i18n="heroText">
+      Curated digital creations for planning, studying,
+      reading, creating and making everyday life more beautiful.
+    </p>
 
-        <div class="category">
-          <div>
-            <h3>DESIGN</h3>
-            <p>Creative digital resources</p>
-          </div>
-        </div>
+    <a href="#shop" class="btn" data-i18n="explore">
+      EXPLORE COLLECTION
+    </a>
 
-        <div class="category">
-          <div>
-            <h3>COVERS</h3>
-            <p>Beautiful notebook &amp; digital covers</p>
-          </div>
-        </div>
+  </div>
+</section>
 
-        <div class="category">
-          <div>
-            <h3>MORE</h3>
-            <p>More digital creations coming soon</p>
-          </div>
-        </div>
 
-      </div>
-    </section>
+<section class="section" id="categories">
 
-    <section id="about" class="about">
+  <div class="section-head">
+    <div class="small" data-i18n="discover">Discover</div>
+    <h2 data-i18n="categoriesTitle">Collections</h2>
+    <p data-i18n="categoriesText">
+      Explore the world of VÉLORA.
+    </p>
+  </div>
 
-      <div class="section-title">
-        <h2>About VÉLORA</h2>
-      </div>
+  <div class="categories" id="categoryGrid"></div>
 
-      <p>
-        VÉLORA is a digital atelier created for people
-        who appreciate thoughtful design, organization
-        and beautiful everyday details.
+</section>
+
+
+<section class="section" id="shop">
+
+  <div class="section-head">
+    <div class="small">VÉLORA SHOP</div>
+    <h2 data-i18n="shopTitle">The Collection</h2>
+    <p data-i18n="shopText">
+      Digital pieces designed with intention.
+    </p>
+  </div>
+
+  <div class="toolbar">
+
+    <div class="searchbox">
+      <input
+        id="shopSearch"
+        type="search"
+        placeholder="Search products..."
+        oninput="renderProducts()"
+      >
+    </div>
+
+    <select id="categoryFilter" class="select" onchange="renderProducts()">
+      <option value="all">All categories</option>
+    </select>
+
+    <select id="sortFilter" class="select" onchange="renderProducts()">
+      <option value="new">Newest</option>
+      <option value="priceLow">Price: Low</option>
+      <option value="priceHigh">Price: High</option>
+      <option value="discount">Discounts</option>
+    </select>
+
+  </div>
+
+  <div class="products" id="productGrid"></div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="features">
+
+    <div class="feature">
+      <div class="feature-icon">✦</div>
+      <h3 data-i18n="feature1Title">Instant Access</h3>
+      <p data-i18n="feature1Text">
+        Access your digital purchases from your library.
+      </p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">◇</div>
+      <h3 data-i18n="feature2Title">Beautiful Design</h3>
+      <p data-i18n="feature2Text">
+        Carefully designed digital products.
+      </p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">⌁</div>
+      <h3 data-i18n="feature3Title">Your Library</h3>
+      <p data-i18n="feature3Text">
+        Keep your purchases available in one place.
+      </p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">♡</div>
+      <h3 data-i18n="feature4Title">Custom Orders</h3>
+      <p data-i18n="feature4Text">
+        Request a digital creation made for you.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section dark-section" id="about">
+
+  <div class="about-grid">
+
+    <div class="about-title">
+      VÉLORA<br>
+      <span style="color:#a88a58">ATELIER</span>
+    </div>
+
+    <div class="about-text">
+      <p data-i18n="aboutText">
+        VÉLORA is a digital atelier for thoughtfully designed
+        planners, study tools, wallpapers, templates, books,
+        creative resources and custom digital creations.
       </p>
 
-    </section>
+      <br>
 
-  </main>
+      <a href="#shop" class="btn light" data-i18n="discoverProducts">
+        DISCOVER PRODUCTS
+      </a>
+    </div>
 
-  <footer id="contact">
+  </div>
+
+</section>
+
+
+<section class="section" id="custom">
+
+  <div class="section-head">
+    <div class="small" data-i18n="personal">Personal</div>
+    <h2 data-i18n="customTitle">Custom Orders</h2>
+    <p data-i18n="customText">
+      Tell VÉLORA what you need.
+    </p>
+  </div>
+
+  <div style="max-width:750px;margin:auto">
+
+    <form class="form" onsubmit="submitCustomOrder(event)">
+
+      <label data-i18n="yourName">Your name</label>
+      <input required id="customName">
+
+      <label data-i18n="yourEmail">Email</label>
+      <input type="email" required id="customEmail">
+
+      <label data-i18n="requestTitle">What would you like?</label>
+      <input required id="customTitle">
+
+      <label data-i18n="requestDescription">Describe your request</label>
+      <textarea required id="customDescription"></textarea>
+
+      <label data-i18n="attachFile">Attach a file</label>
+      <input type="file" id="customFile">
+
+      <button class="btn" type="submit" data-i18n="sendRequest">
+        SEND REQUEST
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="section-head">
+    <div class="small">VÉLORA</div>
+    <h2 data-i18n="reviewsTitle">From Our Customers</h2>
+  </div>
+
+  <div class="review-grid" id="reviewGrid"></div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+  <div class="footer-grid">
+
+    <div>
+      <div class="footer-logo">VÉLORA</div>
+      <p style="margin-top:15px;font-size:12px">
+        Digital Atelier
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="shop">SHOP</h4>
+      <a href="#shop">All Products</a>
+      <a href="#categories">Categories</a>
+      <a href="#shop">New Arrivals</a>
+      <a href="#shop">Discounts</a>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="account">ACCOUNT</h4>
+      <a href="#" onclick="openPanel('accountPanel')">My Account</a>
+      <a href="#" onclick="openPanel('libraryPanel')">My Library</a>
+      <a href="#" onclick="openPanel('ordersPanel')">My Orders</a>
+      <a href="#" onclick="openPanel('wishlistPanel')">Wishlist</a>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="support">SUPPORT</h4>
+      <a href="#" onclick="openPanel('messagesPanel')">Messages</a>
+      <a href="#custom">Custom Orders</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+
+  </div>
+
+  <div class="copyright">
     © 2026 VÉLORA — Digital Atelier
-  </footer>
+  </div>
+
+</footer>
+
+
+<!-- SEARCH -->
+
+<div class="overlay" id="searchPanel">
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2 data-i18n="search">Search</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div class="form">
+      <input
+        id="globalSearch"
+        placeholder="Search VÉLORA..."
+        oninput="globalSearch()"
+      >
+    </div>
+
+    <div id="searchResults" style="margin-top:25px"></div>
+
+  </div>
+</div>
+
+
+<!-- CART -->
+
+<div class="overlay" id="cartPanel">
+
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2 data-i18n="cart">Your Cart</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-total">
+      <span data-i18n="total">Total</span>
+      <strong id="cartTotal">$0</strong>
+    </div>
+
+    <div class="form">
+
+      <input
+        id="discountCode"
+        placeholder="Discount code"
+      >
+
+      <button class="btn light" onclick="applyDiscount()">
+        APPLY CODE
+      </button>
+
+      <button class="btn" onclick="checkout()">
+        CONTINUE TO CHECKOUT
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- WISHLIST -->
+
+<div class="overlay" id="wishlistPanel">
+
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2>Wishlist</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div id="wishlistItems"></div>
+
+  </div>
+
+</div>
+
+
+<!-- ACCOUNT -->
+
+<div class="overlay" id="accountPanel">
+
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2 data-i18n="account">Account</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div id="accountContent">
+
+      <form class="form" onsubmit="login(event)">
+
+        <label>Email</label>
+        <input id="loginEmail" type="email" required>
+
+        <label>Password or one-time code</label>
+        <input id="loginPassword" type="password">
+
+        <button class="btn">
+          SIGN IN
+        </button>
+
+      </form>
+
+      <p style="margin-top:18px;color:var(--muted);font-size:12px">
+        Secure authentication will be connected to the production
+        authentication service in the backend version.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- LIBRARY -->
+
+<div class="overlay" id="libraryPanel">
+
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2>My Library</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div id="libraryItems"></div>
+
+  </div>
+
+</div>
+
+
+<!-- ORDERS -->
+
+<div class="overlay" id="ordersPanel">
+
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2>My Orders</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div id="ordersItems"></div>
+
+  </div>
+
+</div>
+
+
+<!-- MESSAGES -->
+
+<div class="overlay" id="messagesPanel">
+
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2>Messages</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div class="form">
+
+      <textarea
+        id="messageText"
+        placeholder="Write your message..."
+      ></textarea>
+
+      <button class="btn" onclick="sendMessage()">
+        SEND MESSAGE
+      </button>
+
+    </div>
+
+    <div id="messagesList" style="margin-top:25px"></div>
+
+  </div>
+
+</div>
+
+
+<!-- PRODUCT MODAL -->
+
+<div class="overlay" id="productPanel">
+
+  <div class="drawer">
+
+    <div class="drawer-head">
+      <h2 id="productModalTitle">Product</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+
+    <div id="productModalContent"></div>
+
+  </div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div class="overlay" id="adminPanel">
+
+  <div class="drawer" style="width:min(1100px,96vw)">
+
+    <div class="drawer-head">
+
+      <h2>VÉLORA ADMIN</h2>
+
+      <button class="close" onclick="closePanels()">×</button>
+
+    </div>
+
+    <div class="dashboard">
+
+      <aside class="admin-nav">
+
+        <h2>VÉLORA</h2>
+
+        <button class="active">Dashboard</button>
+        <button onclick="adminProducts()">Products</button>
+        <button onclick="adminCategories()">Categories</button>
+        <button onclick="adminOrders()">Orders</button>
+        <button>Customers</button>
+        <button>Discounts</button>
+        <button>Reviews</button>
+        <button>Custom Orders</button>
+        <button>Messages</button>
+
+      </aside>
+
+      <div class="admin-content">
+
+        <div class="stats">
+
+          <div class="stat">
+            <small>Products</small>
+            <strong id="statProducts">0</strong>
+          </div>
+
+          <div class="stat">
+            <small>Categories</small>
+            <strong id="statCategories">0</strong>
+          </div>
+
+          <div class="stat">
+            <small>Orders</small>
+            <strong id="statOrders">0</strong>
+          </div>
+
+          <div class="stat">
+            <small>Wishlist</small>
+            <strong id="statWishlist">0</strong>
+          </div>
+
+        </div>
+
+        <div id="adminContent">
+
+          <h3 style="font-family:'Cormorant Garamond';font-size:32px">
+            Welcome to VÉLORA
+          </h3>
+
+          <p style="color:var(--muted);margin-top:10px">
+            Your digital atelier management space.
+          </p>
+
+          <div style="margin-top:25px;display:flex;gap:10px;flex-wrap:wrap">
+
+            <button class="btn" onclick="openAddProduct()">
+              + ADD PRODUCT
+            </button>
+
+            <button class="btn light" onclick="openAddCategory()">
+              + ADD CATEGORY
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const translations = {
+
+  en:{
+    shop:"SHOP",
+    categories:"CATEGORIES",
+    custom:"CUSTOM",
+    about:"ABOUT",
+    eyebrow:"Digital Atelier",
+    heroTitle:"Beautiful things, made digital.",
+    heroText:"Curated digital creations for planning, studying, reading, creating and making everyday life more beautiful.",
+    explore:"EXPLORE COLLECTION",
+    discover:"DISCOVER",
+    categoriesTitle:"Collections",
+    categoriesText:"Explore the world of VÉLORA.",
+    shopTitle:"The Collection",
+    shopText:"Digital pieces designed with intention.",
+    personal:"PERSONAL",
+    customTitle:"Custom Orders",
+    customText:"Tell VÉLORA what you need.",
+    yourName:"Your name",
+    yourEmail:"Email",
+    requestTitle:"What would you like?",
+    requestDescription:"Describe your request",
+    attachFile:"Attach a file",
+    sendRequest:"SEND REQUEST",
+    reviewsTitle:"From Our Customers",
+    feature1Title:"Instant Access",
+    feature1Text:"Access your digital purchases from your library.",
+    feature2Title:"Beautiful Design",
+    feature2Text:"Carefully designed digital products.",
+    feature3Title:"Your Library",
+    feature3Text:"Keep your purchases available in one place.",
+    feature4Title:"Custom Orders",
+    feature4Text:"Request a digital creation made for you.",
+    aboutText:"VÉLORA is a digital atelier for thoughtfully designed planners, study tools, wallpapers, templates, books, creative resources and custom digital creations.",
+    discoverProducts:"DISCOVER PRODUCTS",
+    account:"ACCOUNT",
+    support:"SUPPORT",
+    search:"Search",
+    cart:"Your Cart",
+    total:"Total"
+  },
+
+  fa:{
+    shop:"فروشگاه",
+    categories:"دسته‌بندی‌ها",
+    custom:"سفارش اختصاصی",
+    about:"درباره ما",
+    eyebrow:"آتلیه دیجیتال",
+    heroTitle:"زیبایی، در قالب دیجیتال.",
+    heroText:"مجموعه‌ای از محصولات دیجیتال برای برنامه‌ریزی، مطالعه، خواندن، خلاقیت و زیباتر کردن زندگی روزمره.",
+    explore:"مشاهده مجموعه",
+    discover:"کشف کنید",
+    categoriesTitle:"مجموعه‌ها",
+    categoriesText:"دنیای VÉLORA را کشف کنید.",
+    shopTitle:"مجموعه محصولات",
+    shopText:"محصولات دیجیتالی که با دقت طراحی شده‌اند.",
+    personal:"سفارشی",
+    customTitle:"سفارش اختصاصی",
+    customText:"به VÉLORA بگویید چه چیزی نیاز دارید.",
+    yourName:"نام شما",
+    yourEmail:"ایمیل",
+    requestTitle:"چه چیزی می‌خواهید؟",
+    requestDescription:"توضیحات سفارش",
+    attachFile:"افزودن فایل",
+    sendRequest:"ارسال درخواست",
+    reviewsTitle:"نظر مشتریان",
+    feature1Title:"دسترسی فوری",
+    feature1Text:"محصولات خریداری‌شده را از کتابخانه خود دریافت کنید.",
+    feature2Title:"طراحی زیبا",
+    feature2Text:"محصولات دیجیتال با طراحی دقیق.",
+    feature3Title:"کتابخانه شما",
+    feature3Text:"تمام خریدهای شما در یک مکان.",
+    feature4Title:"سفارش اختصاصی",
+    feature4Text:"یک محصول دیجیتال مخصوص خودتان سفارش دهید.",
+    aboutText:"VÉLORA یک آتلیه دیجیتال برای پلنرها، جزوه‌ها، والپیپرها، قالب‌ها، کتاب‌ها، منابع خلاقانه و محصولات سفارشی است.",
+    discoverProducts:"مشاهده محصولات",
+    account:"حساب کاربری",
+    support:"پشتیبانی",
+    search:"جستجو",
+    cart:"سبد خرید",
+    total:"مجموع"
+  }
+
+};
+
+let language = localStorage.getItem("velora_language") || "en";
+
+let categories = JSON.parse(
+  localStorage.getItem("velora_categories") || "null"
+) || [
+
+  {
+    id:1,
+    name:"Planners",
+    description:"Elegant planning systems"
+  },
+
+  {
+    id:2,
+    name:"Study",
+    description:"Notes & study tools"
+  },
+
+  {
+    id:3,
+    name:"Wallpapers",
+    description:"Digital backgrounds"
+  },
+
+  {
+    id:4,
+    name:"Books",
+    description:"Digital books & novels"
+  },
+
+  {
+    id:5,
+    name:"Templates",
+    description:"Beautiful editable templates"
+  },
+
+  {
+    id:6,
+    name:"Design",
+    description:"Creative digital resources"
+  }
+
+];
+
+let products = JSON.parse(
+  localStorage.getItem("velora_products") || "null"
+) || [
+
+  {
+    id:1,
+    name:"The Academic Planner",
+    category:"Planners",
+    description:"A refined digital planner for organized study days.",
+    price:18,
+    oldPrice:25,
+    discount:28,
+    tag:"BESTSELLER",
+    versions:["PDF","GoodNotes","Printable"],
+    purchased:false
+  },
+
+  {
+    id:2,
+    name:"Study Notes Collection",
+    category:"Study",
+    description:"Minimal study templates for focused learning.",
+    price:12,
+    oldPrice:16,
+    discount:25,
+    tag:"NEW",
+    versions:["PDF","A4","A5"],
+    purchased:false
+  },
+
+  {
+    id:3,
+    name:"Ivory Desktop Set",
+    category:"Wallpapers",
+    description:"A sophisticated collection of digital wallpapers.",
+    price:8,
+    oldPrice:10,
+    discount:20,
+    tag:"20% OFF",
+    versions:["Phone","Tablet","Desktop"],
+    purchased:false
+  },
+
+  {
+    id:4,
+    name:"The Quiet Novel",
+    category:"Books",
+    description:"A beautifully formatted digital reading experience.",
+    price:9,
+    oldPrice:null,
+    discount:0,
+    tag:"DIGITAL BOOK",
+    versions:["EPUB","PDF"],
+    purchased:false
+  }
+
+];
+
+let cart = JSON.parse(
+  localStorage.getItem("velora_cart") || "[]"
+);
+
+let wishlist = JSON.parse(
+  localStorage.getItem("velora_wishlist") || "[]"
+);
+
+let orders = JSON.parse(
+  localStorage.getItem("velora_orders") || "[]"
+);
+
+let library = JSON.parse(
+  localStorage.getItem("velora_library") || "[]"
+);
+
+let reviews = JSON.parse(
+  localStorage.getItem("velora_reviews") || "null"
+) || [
+
+  {
+    name:"A.",
+    text:"Beautiful, thoughtful and very easy to use.",
+    stars:5
+  },
+
+  {
+    name:"M.",
+    text:"The design is exactly what I was looking for.",
+    stars:5
+  },
+
+  {
+    name:"S.",
+    text:"Elegant and practical.",
+    stars:5
+  }
+
+];
+
+let messages = JSON.parse(
+  localStorage.getItem("velora_messages") || "[]"
+);
+
+let customOrders = JSON.parse(
+  localStorage.getItem("velora_custom_orders") || "[]"
+);
+
+let activeDiscount = 0;
+
+
+/* =========================
+   INIT
+========================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  applyLanguage();
+
+  renderCategories();
+
+  renderCategoryFilter();
+
+  renderProducts();
+
+  renderCart();
+
+  renderWishlist();
+
+  renderLibrary();
+
+  renderOrders();
+
+  renderReviews();
+
+  updateCounts();
+
+  renderMessages();
+
+});
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+function toggleLanguage(){
+
+  language = language === "en" ? "fa" : "en";
+
+  localStorage.setItem(
+    "velora_language",
+    language
+  );
+
+  applyLanguage();
+
+  renderCategories();
+
+  renderCategoryFilter();
+
+  renderProducts();
+
+}
+
+function applyLanguage(){
+
+  document.documentElement.lang =
+    language === "fa" ? "fa" : "en";
+
+  document.documentElement.dir =
+    language === "fa" ? "rtl" : "ltr";
+
+  document.body.classList.toggle(
+    "rtl",
+    language === "fa"
+  );
+
+  document.querySelectorAll("[data-i18n]")
+    .forEach(el=>{
+
+      const key = el.dataset.i18n;
+
+      if(translations[language][key]){
+        el.textContent =
+          translations[language][key];
+      }
+
+    });
+
+  document.getElementById("languageButton").textContent =
+    language === "en" ? "فارسی" : "English";
+
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+function renderCategories(){
+
+  const grid =
+    document.getElementById("categoryGrid");
+
+  grid.innerHTML = "";
+
+  categories.forEach(category=>{
+
+    grid.innerHTML += `
+
+      <a
+        class="category"
+        href="#shop"
+        onclick="chooseCategory('${escapeHTML(category.name)}')"
+      >
+
+        <div>
+
+          <h3>${escapeHTML(category.name)}</h3>
+
+          <p>${escapeHTML(category.description)}</p>
+
+        </div>
+
+      </a>
+
+    `;
+
+  });
+
+}
+
+function renderCategoryFilter(){
+
+  const select =
+    document.getElementById("categoryFilter");
+
+  select.innerHTML =
+    `<option value="all">
+      ${language==="fa"?"همه دسته‌ها":"All categories"}
+    </option>`;
+
+  categories.forEach(category=>{
+
+    select.innerHTML += `
+      <option value="${escapeHTML(category.name)}">
+        ${escapeHTML(category.name)}
+      </option>
+    `;
+
+  });
+
+}
+
+function chooseCategory(category){
+
+  document.getElementById(
+    "categoryFilter"
+  ).value = category;
+
+  renderProducts();
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+function renderProducts(){
+
+  const grid =
+    document.getElementById("productGrid");
+
+  const search =
+    document.getElementById("shopSearch")
+      .value
+      .toLowerCase();
+
+  const category =
+    document.getElementById("categoryFilter")
+      .value;
+
+  const sort =
+    document.getElementById("sortFilter")
+      .value;
+
+  let list =
+    products.filter(product=>{
+
+      const matchSearch =
+        product.name
+          .toLowerCase()
+          .includes(search) ||
+        product.description
+          .toLowerCase()
+          .includes(search);
+
+      const matchCategory =
+        category === "all" ||
+        product.category === category;
+
+      return matchSearch && matchCategory;
+
+    });
+
+  if(sort==="priceLow"){
+    list.sort((a,b)=>a.price-b.price);
+  }
+
+  if(sort==="priceHigh"){
+    list.sort((a,b)=>b.price-a.price);
+  }
+
+  if(sort==="discount"){
+    list.sort((a,b)=>
+      (b.discount||0)-(a.discount||0)
+    );
+  }
+
+  grid.innerHTML = "";
+
+  if(!list.length){
+
+    grid.innerHTML = `
+      <p style="grid-column:1/-1;text-align:center;color:var(--muted)">
+        No products found.
+      </p>
+    `;
+
+    return;
+  }
+
+  list.forEach(product=>{
+
+    const liked =
+      wishlist.includes(product.id);
+
+    grid.innerHTML += `
+
+      <article class="product">
+
+        <div class="product-image">
+
+          ${
+            product.tag
+            ?
+            `<div class="product-tag">
+              ${escapeHTML(product.tag)}
+            </div>`
+            :
+            ""
+          }
+
+          <button
+            class="product-heart"
+            onclick="toggleWishlist(${product.id})"
+          >
+            ${liked ? "♥" : "♡"}
+          </button>
+
+          <div class="preview">
+
+            <div class="watermark">
+              VÉLORA
+            </div>
+
+            ${escapeHTML(product.name)}
+
+          </div>
+
+        </div>
+
+        <div class="product-info">
+
+          <small style="color:var(--muted)">
+            ${escapeHTML(product.category)}
+          </small>
+
+          <h3>${escapeHTML(product.name)}</h3>
+
+          <p>
+            ${escapeHTML(product.description)}
+          </p>
+
+          <div class="price">
+
+            <strong>
+              $${Number(product.price).toFixed(2)}
+            </strong>
+
+            ${
+              product.oldPrice
+              ?
+              `<span class="oldprice">
+                $${Number(product.oldPrice).toFixed(2)}
+              </span>`
+              :
+              ""
+            }
+
+            ${
+              product.discount
+              ?
+              `<span class="discount">
+                -${product.discount}%
+              </span>`
+              :
+              ""
+            }
+
+          </div>
+
+          <div class="product-actions">
+
+            <button
+              class="btn light"
+              onclick="openProduct(${product.id})"
+            >
+              VIEW
+            </button>
+
+            <button
+              class="btn"
+              onclick="addToCart(${product.id})"
+            >
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   PRODUCT MODAL
+========================= */
+
+function openProduct(id){
+
+  const product =
+    products.find(p=>p.id===id);
+
+  if(!product) return;
+
+  document.getElementById(
+    "productModalTitle"
+  ).textContent =
+    product.name;
+
+  document.getElementById(
+    "productModalContent"
+  ).innerHTML = `
+
+    <div class="product-image" style="height:300px">
+
+      <div class="preview">
+        ${escapeHTML(product.name)}
+      </div>
+
+      <div class="watermark">
+        VÉLORA
+      </div>
+
+    </div>
+
+    <div style="padding-top:25px">
+
+      <small style="color:var(--muted)">
+        ${escapeHTML(product.category)}
+      </small>
+
+      <h2 style="
+        font-family:'Cormorant Garamond';
+        font-size:40px;
+        font-weight:500;
+        margin:5px 0 10px;
+      ">
+        ${escapeHTML(product.name)}
+      </h2>
+
+      <p style="color:var(--muted)">
+        ${escapeHTML(product.description)}
+      </p>
+
+      <div class="price">
+        <strong>
+          $${Number(product.price).toFixed(2)}
+        </strong>
+
+        ${
+          product.oldPrice
+          ?
+          `<span class="oldprice">
+            $${Number(product.oldPrice).toFixed(2)}
+          </span>`
+          :
+          ""
+        }
+
+      </div>
+
+      <label style="
+        display:block;
+        font-size:11px;
+        color:var(--muted);
+        margin-bottom:7px;
+      ">
+        FORMAT / VERSION
+      </label>
+
+      <select
+        id="productVersion"
+        class="select"
+        style="width:100%;height:48px"
+      >
+
+        ${
+          product.versions
+          .map(v=>
+            `<option>${escapeHTML(v)}</option>`
+          )
+          .join("")
+        }
+
+      </select>
+
+      <button
+        class="btn"
+        style="width:100%;margin-top:15px"
+        onclick="addToCart(${product.id});closePanels()"
+      >
+        ADD TO CART
+      </button>
+
+      <div style="
+        margin-top:30px;
+        padding-top:20px;
+        border-top:1px solid var(--line);
+      ">
+
+        <h3 style="
+          font-family:'Cormorant Garamond';
+          font-size:27px;
+          font-weight:500;
+        ">
+          Reviews
+        </h3>
+
+        <div style="margin-top:12px">
+
+          <div class="stars">
+            ★★★★★
+          </div>
+
+          <p style="color:var(--muted);font-size:12px">
+            Verified customers can leave a review
+            after purchase.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+  openPanel("productPanel");
+
+}
+
+
+/* =========================
+   CART
+========================= */
+
+function addToCart(id){
+
+  const product =
+    products.find(p=>p.id===id);
+
+  if(!product) return;
+
+  cart.push({
+    id:product.id,
+    name:product.name,
+    price:product.price
+  });
+
+  saveData();
+
+  renderCart();
+
+  updateCounts();
+
+  showToast(
+    language==="fa"
+    ? "محصول به سبد خرید اضافه شد"
+    : "Added to cart"
+  );
+
+}
+
+function removeCart(index){
+
+  cart.splice(index,1);
+
+  saveData();
+
+  renderCart();
+
+  updateCounts();
+
+}
+
+function renderCart(){
+
+  const box =
+    document.getElementById("cartItems");
+
+  if(!cart.length){
+
+    box.innerHTML = `
+      <p style="color:var(--muted)">
+        Your cart is empty.
+      </p>
+    `;
+
+    document.getElementById(
+      "cartTotal"
+    ).textContent="$0";
+
+    return;
+  }
+
+  let total=0;
+
+  box.innerHTML="";
+
+  cart.forEach((item,index)=>{
+
+    total += Number(item.price);
+
+    box.innerHTML += `
+
+      <div class="cart-item">
+
+        <div class="cart-thumb">
+          V
+        </div>
+
+        <div>
+
+          <h4>
+            ${escapeHTML(item.name)}
+          </h4>
+
+          <small>
+            $${Number(item.price).toFixed(2)}
+          </small>
+
+        </div>
+
+        <button
+          class="cart-remove"
+          onclick="removeCart(${index})"
+        >
+          ×
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+  total *= (1-activeDiscount);
+
+  document.getElementById(
+    "cartTotal"
+  ).textContent =
+    "$"+total.toFixed(2);
+
+}
+
+function applyDiscount(){
+
+  const code =
+    document.getElementById(
+      "discountCode"
+    ).value.trim().toUpperCase();
+
+  if(code==="VELORA20"){
+
+    activeDiscount=.20;
+
+    renderCart();
+
+    showToast("20% discount applied");
+
+  }else{
+
+    activeDiscount=0;
+
+    renderCart();
+
+    showToast("Invalid discount code");
+
+  }
+
+}
+
+function checkout(){
+
+  if(!cart.length){
+
+    showToast("Your cart is empty");
+
+    return;
+  }
+
+  /*
+    REAL PAYMENT MUST BE CONNECTED HERE.
+    Do not place bank account numbers
+    or card details in this HTML file.
+  */
+
+  const order={
+    id:"VL-"+Date.now(),
+    items:[...cart],
+    total:cart.reduce(
+      (sum,item)=>sum+Number(item.price),0
+    )*(1-activeDiscount),
+    status:"Payment integration required",
+    date:new Date().toLocaleDateString()
+  };
+
+  orders.push(order);
+
+  cart.forEach(item=>{
+
+    if(!library.includes(item.id)){
+      library.push(item.id);
+    }
+
+  });
+
+  saveData();
+
+  cart=[];
+
+  activeDiscount=0;
+
+  renderCart();
+
+  renderOrders();
+
+  renderLibrary();
+
+  updateCounts();
+
+  closePanels();
+
+  showToast(
+    "Checkout area ready for payment integration"
+  );
+
+}
+
+
+/* =========================
+   WISHLIST
+========================= */
+
+function toggleWishlist(id){
+
+  if(wishlist.includes(id)){
+
+    wishlist =
+      wishlist.filter(x=>x!==id);
+
+  }else{
+
+    wishlist.push(id);
+
+  }
+
+  saveData();
+
+  renderProducts();
+
+  renderWishlist();
+
+  updateCounts();
+
+}
+
+function renderWishlist(){
+
+  const box =
+    document.getElementById(
+      "wishlistItems"
+    );
+
+  if(!wishlist.length){
+
+    box.innerHTML =
+      `<p style="color:var(--muted)">
+        Your wishlist is empty.
+      </p>`;
+
+    return;
+  }
+
+  box.innerHTML="";
+
+  wishlist.forEach(id=>{
+
+    const product =
+      products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    box.innerHTML += `
+
+      <div class="cart-item">
+
+        <div class="cart-thumb">V</div>
+
+        <div>
+
+          <h4>
+            ${escapeHTML(product.name)}
+          </h4>
+
+          <small>
+            $${Number(product.price).toFixed(2)}
+          </small>
+
+        </div>
+
+        <button
+          class="cart-remove"
+          onclick="toggleWishlist(${id})"
+        >
+          ×
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   LIBRARY
+========================= */
+
+function renderLibrary(){
+
+  const box =
+    document.getElementById(
+      "libraryItems"
+    );
+
+  if(!library.length){
+
+    box.innerHTML =
+      `<p style="color:var(--muted)">
+        Your purchased products will appear here.
+      </p>`;
+
+    return;
+  }
+
+  box.innerHTML="";
+
+  library.forEach(id=>{
+
+    const product =
+      products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    box.innerHTML += `
+
+      <div class="cart-item">
+
+        <div class="cart-thumb">
+          V
+        </div>
+
+        <div>
+
+          <h4>
+            ${escapeHTML(product.name)}
+          </h4>
+
+          <small>
+            ${product.versions.join(" · ")}
+          </small>
+
+          <br>
+
+          <button
+            class="btn"
+            style="margin-top:8px;padding:8px 15px"
+            onclick="downloadProduct(${product.id})"
+          >
+            DOWNLOAD
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+function downloadProduct(id){
+
+  const product =
+    products.find(p=>p.id===id);
+
+  if(!product) return;
+
+  /*
+    Production version will request
+    an authenticated private download URL
+    from the backend.
+  */
+
+  showToast(
+    "Secure download will be connected to the file server."
+  );
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+function renderOrders(){
+
+  const box =
+    document.getElementById(
+      "ordersItems"
+    );
+
+  if(!orders.length){
+
+    box.innerHTML =
+      `<p style="color:var(--muted)">
+        No orders yet.
+      </p>`;
+
+    return;
+  }
+
+  box.innerHTML="";
+
+  orders.forEach(order=>{
+
+    box.innerHTML += `
+
+      <div style="
+        border:1px solid var(--line);
+        padding:18px;
+        border-radius:14px;
+        margin-bottom:12px;
+      ">
+
+        <strong>${order.id}</strong>
+
+        <div style="
+          color:var(--muted);
+          font-size:11px;
+          margin-top:5px;
+        ">
+          ${order.date}
+        </div>
+
+        <div style="margin-top:8px">
+          $${Number(order.total).toFixed(2)}
+        </div>
+
+        <small style="
+          display:block;
+          margin-top:8px;
+          color:var(--muted);
+        ">
+          ${order.status}
+        </small>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   CUSTOM ORDERS
+========================= */
+
+function submitCustomOrder(event){
+
+  event.preventDefault();
+
+  const file =
+    document.getElementById(
+      "customFile"
+    ).files[0];
+
+  const request={
+
+    id:"CUSTOM-"+Date.now(),
+
+    name:
+      document.getElementById(
+        "customName"
+      ).value,
+
+    email:
+      document.getElementById(
+        "customEmail"
+      ).value,
+
+    title:
+      document.getElementById(
+        "customTitle"
+      ).value,
+
+    description:
+      document.getElementById(
+        "customDescription"
+      ).value,
+
+    fileName:
+      file ? file.name : null,
+
+    date:new Date().toLocaleDateString(),
+
+    status:"Received"
+
+  };
+
+  customOrders.push(request);
+
+  localStorage.setItem(
+    "velora_custom_orders",
+    JSON.stringify(customOrders)
+  );
+
+  event.target.reset();
+
+  showToast(
+    "Your custom request has been received."
+  );
+
+}
+
+
+/* =========================
+   REVIEWS
+========================= */
+
+function renderReviews(){
+
+  const box =
+    document.getElementById(
+      "reviewGrid"
+    );
+
+  box.innerHTML="";
+
+  reviews.forEach(review=>{
+
+    box.innerHTML += `
+
+      <div class="review">
+
+        <div class="stars">
+          ${"★".repeat(review.stars)}
+        </div>
+
+        <p>
+          “${escapeHTML(review.text)}”
+        </p>
+
+        <small style="
+          display:block;
+          margin-top:15px;
+        ">
+          — ${escapeHTML(review.name)}
+        </small>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+function sendMessage(){
+
+  const input =
+    document.getElementById(
+      "messageText"
+    );
+
+  if(!input.value.trim()) return;
+
+  messages.push({
+
+    text:input.value,
+
+    date:new Date().toLocaleString(),
+
+    status:"Sent"
+
+  });
+
+  input.value="";
+
+  localStorage.setItem(
+    "velora_messages",
+    JSON.stringify(messages)
+  );
+
+  renderMessages();
+
+  showToast("Message sent");
+
+}
+
+function renderMessages(){
+
+  const box =
+    document.getElementById(
+      "messagesList"
+    );
+
+  if(!messages.length){
+
+    box.innerHTML =
+      `<p style="color:var(--muted)">
+        No messages yet.
+      </p>`;
+
+    return;
+  }
+
+  box.innerHTML="";
+
+  messages.forEach(message=>{
+
+    box.innerHTML += `
+
+      <div style="
+        padding:15px;
+        border:1px solid var(--line);
+        border-radius:12px;
+        margin-bottom:10px;
+      ">
+
+        <p>
+          ${escapeHTML(message.text)}
+        </p>
+
+        <small style="
+          color:var(--muted);
+        ">
+          ${message.date}
+        </small>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(event){
+
+  event.preventDefault();
+
+  const email =
+    document.getElementById(
+      "loginEmail"
+    ).value;
+
+  if(!email) return;
+
+  localStorage.setItem(
+    "velora_demo_user",
+    email
+  );
+
+  showToast(
+    "Account session created for this demo."
+  );
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function globalSearch(){
+
+  const query =
+    document.getElementById(
+      "globalSearch"
+    ).value.toLowerCase();
+
+  const box =
+    document.getElementById(
+      "searchResults"
+    );
+
+  const found =
+    products.filter(product=>
+      product.name
+        .toLowerCase()
+        .includes(query)
+    );
+
+  box.innerHTML="";
+
+  found.forEach(product=>{
+
+    box.innerHTML += `
+
+      <div
+        style="
+          padding:15px;
+          border-bottom:1px solid var(--line);
+          cursor:pointer;
+        "
+        onclick="openProduct(${product.id})"
+      >
+
+        <strong>
+          ${escapeHTML(product.name)}
+        </strong>
+
+        <small style="
+          display:block;
+          color:var(--muted);
+        ">
+          $${Number(product.price).toFixed(2)}
+        </small>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+function openAdmin(){
+
+  updateAdminStats();
+
+  openPanel("adminPanel");
+
+}
+
+function updateAdminStats(){
+
+  document.getElementById(
+    "statProducts"
+  ).textContent =
+    products.length;
+
+  document.getElementById(
+    "statCategories"
+  ).textContent =
+    categories.length;
+
+  document.getElementById(
+    "statOrders"
+  ).textContent =
+    orders.length;
+
+  document.getElementById(
+    "statWishlist"
+  ).textContent =
+    wishlist.length;
+
+}
+
+function openAddProduct(){
+
+  document.getElementById(
+    "adminContent"
+  ).innerHTML = `
+
+    <h3 style="
+      font-family:'Cormorant Garamond';
+      font-size:35px;
+      font-weight:500;
+    ">
+      Add Product
+    </h3>
+
+    <form
+      class="form"
+      style="margin-top:20px"
+      onsubmit="saveNewProduct(event)"
+    >
+
+      <input
+        id="newProductName"
+        placeholder="Product name"
+        required
+      >
+
+      <select
+        id="newProductCategory"
+        required
+      >
+
+        ${
+          categories.map(c=>
+            `<option value="${escapeHTML(c.name)}">
+              ${escapeHTML(c.name)}
+            </option>`
+          ).join("")
+        }
+
+      </select>
+
+      <textarea
+        id="newProductDescription"
+        placeholder="Description"
+        required
+      ></textarea>
+
+      <input
+        id="newProductPrice"
+        type="number"
+        step="0.01"
+        placeholder="Price"
+        required
+      >
+
+      <input
+        id="newProductOldPrice"
+        type="number"
+        step="0.01"
+        placeholder="Old price (optional)"
+      >
+
+      <input
+        id="newProductDiscount"
+        type="number"
+        placeholder="Discount %"
+      >
+
+      <input
+        id="newProductTag"
+        placeholder="Tag e.g. NEW"
+      >
+
+      <input
+        id="newProductVersions"
+        placeholder="Versions: PDF, EPUB, A5"
+      >
+
+      <button class="btn">
+        SAVE PRODUCT
+      </button>
+
+    </form>
+
+  `;
+
+}
+
+function saveNewProduct(event){
+
+  event.preventDefault();
+
+  const product={
+
+    id:Date.now(),
+
+    name:
+      document.getElementById(
+        "newProductName"
+      ).value,
+
+    category:
+      document.getElementById(
+        "newProductCategory"
+      ).value,
+
+    description:
+      document.getElementById(
+        "newProductDescription"
+      ).value,
+
+    price:
+      Number(
+        document.getElementById(
+          "newProductPrice"
+        ).value
+      ),
+
+    oldPrice:
+      Number(
+        document.getElementById(
+          "newProductOldPrice"
+        ).value
+      ) || null,
+
+    discount:
+      Number(
+        document.getElementById(
+          "newProductDiscount"
+        ).value
+      ) || 0,
+
+    tag:
+      document.getElementById(
+        "newProductTag"
+      ).value,
+
+    versions:
+      document.getElementById(
+        "newProductVersions"
+      ).value
+      .split(",")
+      .map(x=>x.trim())
+      .filter(Boolean)
+
+  };
+
+  products.unshift(product);
+
+  saveData();
+
+  renderProducts();
+
+  updateAdminStats();
+
+  showToast("Product added");
+
+  openAdmin();
+
+}
+
+function openAddCategory(){
+
+  document.getElementById(
+    "adminContent"
+  ).innerHTML = `
+
+    <h3 style="
+      font-family:'Cormorant Garamond';
+      font-size:35px;
+      font-weight:500;
+    ">
+      New Category
+    </h3>
+
+    <form
+      class="form"
+      style="margin-top:20px"
+      onsubmit="saveNewCategory(event)"
+    >
+
+      <input
+        id="newCategoryName"
+        placeholder="Category name"
+        required
+      >
+
+      <input
+        id="newCategoryDescription"
+        placeholder="Short description"
+        required
+      >
+
+      <button class="btn">
+        CREATE CATEGORY
+      </button>
+
+    </form>
+
+  `;
+
+}
+
+function saveNewCategory(event){
+
+  event.preventDefault();
+
+  const category={
+
+    id:Date.now(),
+
+    name:
+      document.getElementById(
+        "newCategoryName"
+      ).value,
+
+    description:
+      document.getElementById(
+        "newCategoryDescription"
+      ).value
+
+  };
+
+  categories.push(category);
+
+  saveData();
+
+  renderCategories();
+
+  renderCategoryFilter();
+
+  updateAdminStats();
+
+  showToast("Category created");
+
+  openAdmin();
+
+}
+
+function adminProducts(){
+
+  document.getElementById(
+    "adminContent"
+  ).innerHTML = `
+
+    <h3 style="
+      font-family:'Cormorant Garamond';
+      font-size:35px;
+      font-weight:500;
+    ">
+      Products
+    </h3>
+
+    <div style="
+      margin-top:20px;
+      overflow:auto;
+    ">
+
+      <table class="admin-table">
+
+        <thead>
+
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Discount</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${
+            products.map(p=>`
+
+              <tr>
+
+                <td>
+                  ${escapeHTML(p.name)}
+                </td>
+
+                <td>
+                  ${escapeHTML(p.category)}
+                </td>
+
+                <td>
+                  $${Number(p.price).toFixed(2)}
+                </td>
+
+                <td>
+                  ${p.discount||0}%
+                </td>
+
+              </tr>
+
+            `).join("")
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+function adminCategories(){
+
+  document.getElementById(
+    "adminContent"
+  ).innerHTML = `
+
+    <h3 style="
+      font-family:'Cormorant Garamond';
+      font-size:35px;
+      font-weight:500;
+    ">
+      Categories
+    </h3>
+
+    <div style="
+      margin-top:20px;
+      display:grid;
+      gap:10px;
+    ">
+
+      ${
+        categories.map(c=>`
+
+          <div style="
+            padding:17px;
+            border:1px solid var(--line);
+            border-radius:12px;
+          ">
+
+            <strong>
+              ${escapeHTML(c.name)}
+            </strong>
+
+            <small style="
+              display:block;
+              color:var(--muted);
+            ">
+              ${escapeHTML(c.description)}
+            </small>
+
+          </div>
+
+        `).join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+function adminOrders(){
+
+  document.getElementById(
+    "adminContent"
+  ).innerHTML = `
+
+    <h3 style="
+      font-family:'Cormorant Garamond';
+      font-size:35px;
+      font-weight:500;
+    ">
+      Orders
+    </h3>
+
+    <div style="margin-top:20px">
+
+      ${
+        orders.length
+        ?
+        orders.map(o=>`
+
+          <div style="
+            border:1px solid var(--line);
+            border-radius:12px;
+            padding:17px;
+            margin-bottom:10px;
+          ">
+
+            <strong>
+              ${o.id}
+            </strong>
+
+            <div>
+              $${Number(o.total).toFixed(2)}
+            </div>
+
+            <small>
+              ${o.status}
+            </small>
+
+          </div>
+
+        `).join("")
+        :
+        `<p style="color:var(--muted)">
+          No orders yet.
+        </p>`
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   PANELS
+========================= */
+
+function openPanel(id){
+
+  closePanels();
+
+  const panel =
+    document.getElementById(id);
+
+  if(panel){
+
+    panel.classList.add("show");
+
+  }
+
+  if(id==="cartPanel"){
+    renderCart();
+  }
+
+  if(id==="wishlistPanel"){
+    renderWishlist();
+  }
+
+  if(id==="libraryPanel"){
+    renderLibrary();
+  }
+
+  if(id==="ordersPanel"){
+    renderOrders();
+  }
+
+  if(id==="messagesPanel"){
+    renderMessages();
+  }
+
+}
+
+function closePanels(){
+
+  document
+    .querySelectorAll(".overlay")
+    .forEach(el=>
+      el.classList.remove("show")
+    );
+
+}
+
+
+/* =========================
+   UTILITIES
+========================= */
+
+function updateCounts(){
+
+  document.getElementById(
+    "cartCount"
+  ).textContent =
+    cart.length;
+
+  document.getElementById(
+    "wishlistCount"
+  ).textContent =
+    wishlist.length;
+
+}
+
+function saveData(){
+
+  localStorage.setItem(
+    "velora_products",
+    JSON.stringify(products)
+  );
+
+  localStorage.setItem(
+    "velora_categories",
+    JSON.stringify(categories)
+  );
+
+  localStorage.setItem(
+    "velora_cart",
+    JSON.stringify(cart)
+  );
+
+  localStorage.setItem(
+    "velora_wishlist",
+    JSON.stringify(wishlist)
+  );
+
+  localStorage.setItem(
+    "velora_orders",
+    JSON.stringify(orders)
+  );
+
+  localStorage.setItem(
+    "velora_library",
+    JSON.stringify(library)
+  );
+
+}
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },2500);
+
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   ADMIN ACCESS
+=========================
+
+   Demo shortcut:
+   Press A + D on keyboard.
+   Production version should use
+   real secure authentication.
+========================= */
+
+let adminKeys="";
+
+document.addEventListener("keydown",event=>{
+
+  adminKeys += event.key.toLowerCase();
+
+  if(adminKeys.length>2){
+    adminKeys =
+      adminKeys.slice(-2);
+  }
+
+  if(adminKeys==="ad"){
+    openAdmin();
+    adminKeys="";
+  }
+
+});
+
+
+</script>
 
 </body>
-</html>
+  </html>
