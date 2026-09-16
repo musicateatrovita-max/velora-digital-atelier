@@ -161,4 +161,129 @@
       padding: 35px 7%;
       border-top: 1px solid #d8d0c5;
       font-size: 12px;
-      letter-spacing: 1
+      letter-spacing: 1px;
+      color: #776f66;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .categories {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 65vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">VÉLORA</div>
+
+    <nav>
+      <a href="#shop">SHOP</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Digital Atelier</div>
+        <h1>VÉLORA</h1>
+
+        <p>
+          Curated digital creations for study, planning,
+          creativity and everyday inspiration.
+        </p>
+
+        <a href="#shop" class="button">EXPLORE COLLECTION</a>
+      </div>
+    </section>
+
+    <section id="shop">
+      <div class="section-title">
+        <h2>The Collection</h2>
+        <p>Digital pieces designed with intention.</p>
+      </div>
+
+      <div class="categories">
+
+        <div class="category">
+          <div>
+            <h3>PLANNERS</h3>
+            <p>Elegant digital planners & organizers</p>
+          </div>
+        </div>
+
+        <div class="category">
+          <div>
+            <h3>STUDY</h3>
+            <p>Notes, templates & study tools</p>
+          </div>
+        </div>
+
+        <div class="category">
+          <div>
+            <h3>WALLPAPERS</h3>
+            <p>Minimal digital backgrounds</p>
+          </div>
+        </div>
+
+        <div class="category">
+          <div>
+            <h3>DESIGN</h3>
+            <p>Creative digital resources</p>
+          </div>
+        </div>
+
+        <div class="category">
+          <div>
+            <h3>COVERS</h3>
+            <p>Beautiful notebook & digital covers</p>
+          </div>
+        </div>
+
+        <div class="category">
+          <div>
+            <h3>MORE</h3>
+            <p>More digital creations coming soon</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="section-title">
+        <h2>About VÉLORA</h2>
+      </div>
+
+      <p>
+        VÉLORA is a digital atelier created for people
+        who appreciate thoughtful design, organization
+        and beautiful everyday details.
+      </p>
+    </section>
+
+  </main>
+
+  <footer id="contact">
+    © 2026 VÉLORA — Digital Atelier
+  </footer>
+
+</body>
+</html>
